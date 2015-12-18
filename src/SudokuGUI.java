@@ -1016,19 +1016,6 @@ public class SudokuGUI extends JFrame {
                     // if that is the case, change those cells to display empty, for a more natural Sudoku grid look
                     inputBoxes[rows][columns].setText("");
                 }
-                if (inputBoxes[rows][columns].getText().length() == 0) {
-                    // change that square to being empty, for a better look
-                    inputBoxes[rows][columns].setText("");
-                    // and make those cells editable
-                    inputBoxes[rows][columns].setEditable(true);
-                    inputBoxes[rows][columns].setForeground(Color.BLACK);
-                    // if cells contain a value on load
-                } else if (inputBoxes[rows][columns].getText() != "") {
-                    // make those cells uneditable
-                    inputBoxes[rows][columns].setEditable(false);
-                    // set the uneditable cells font color
-                    inputBoxes[rows][columns].setForeground(Color.decode(cellColor));
-                }
             } // end columns
             // move to the next row and continue loading
             rows++;
