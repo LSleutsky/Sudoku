@@ -20,13 +20,13 @@
  */
 
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.*;
 import java.util.*;
+import javax.swing.*;
 
 public class SudokuGUI extends JFrame {
 
@@ -81,6 +81,8 @@ public class SudokuGUI extends JFrame {
         JMenuItem openAction = new JMenuItem("Open");
         JMenuItem exitAction = new JMenuItem("Exit");
 
+        // make a new sub-menu for selecting a new puzzle
+        JMenu puzzleOptionsMenu = new JMenu("New Puzzle");;
         // create menu items for the "Puzzle" menu drop down
         JMenuItem solveAction = new JMenuItem("Solve");
         JMenuItem submitAction = new JMenuItem("Submit");
@@ -95,8 +97,6 @@ public class SudokuGUI extends JFrame {
         fileMenu.add(exitAction);
 
         // ****************************************** Puzzle Sub Menu *********************************************** \\
-        // make a new sub-menu for selecting a new puzzle
-        JMenu puzzleOptionsMenu = new JMenu("New Puzzle");;
         // add sub menu to main "Puzzle" menu
         puzzleMenu.add(puzzleOptionsMenu);
 
@@ -256,9 +256,9 @@ public class SudokuGUI extends JFrame {
                 try {
                     // save current puzzle
                     savePuzzle();
-                } catch (IOException ex) {
+                } catch (IOException ioe) {
                     // if save process encounters error, print out error
-                    System.out.println(ex.toString());
+                    System.out.println(ioe.toString());
                 }
             }
         }); // end save action listener
@@ -280,9 +280,9 @@ public class SudokuGUI extends JFrame {
                     addBlankLines();
                     System.out.println("CURRENT PUZZLE:");
                     printToConsole(array);
-                } catch (FileNotFoundException ex) {
+                } catch (FileNotFoundException fnfe) {
                     // if saved file is not found, or error opening file, print out error
-                    System.out.println(ex.toString());
+                    System.out.println(fnfe.toString());
                 }
             }
         }); // end open action
@@ -583,9 +583,9 @@ public class SudokuGUI extends JFrame {
                     result[rows][columns] = Integer.parseInt(inputBoxes[rows][columns].getText());
                     // write that array to an external output file
                     writeToFile(result);
-                } catch (Exception ex) {
+                } catch (Exception e) {
                     // if there is an error with submitting, print the error
-                    System.out.println(ex.toString());
+                    System.out.println(e.toString());
                     // an array index will contain "-1" in the output file, if square is without an integer
                     result[rows][columns] = -1;
                 }
@@ -619,7 +619,7 @@ public class SudokuGUI extends JFrame {
             // variable to hold each line in the external file
             String lineInFile;
             // loop as long as the input file has a line to read
-            while ((lineInFile = inputFile.readLine())!= null) {
+            while ((lineInFile = inputFile.readLine()) != null) {
                 String[] numValues = lineInFile.split(" ");
                 // column parsing
                 for (int columns = 0; columns < COLUMNS; columns++) {
